@@ -16,33 +16,43 @@ class Room {
     isOccupied(date){
       const date1 = new Date(date);
       let occupied;
-        // for(let i=0; i < this.bookings[i].length ;i++){
-        //   if(this.bookings[i].checkIn.getTime()=== date1.getTime()){
-        //     occupied = true;
-        //   }
-        //   else{
-        //     occupied = false;
-        //   }
-          
-        // }
+
         this.bookings.forEach(item => {
-          console.log(item.checkIn.getTime())
-          console.log(date1.getTime())
           if(item.checkIn.getTime() <= date1.getTime()){
-                occupied = true;
+                return occupied = true;
               }
           else if(item.checkOut.getTime()>= date1.getTime()){
-                occupied = true;
+                return occupied = true;
               }
               else{
-                occupied = false;
+                return occupied = false;
               }
         })
         return occupied;   
     }
     occupancyPercentage(startDate, endDate){
-        return false;
-    }
+      startDate = new Date(startDate);
+      endDate = new Date(endDate);
+    
+      let totalTimeResearch = (endDate - startDate) / (24 * 60 * 60 * 1000);
+      let occupiedDays = 0;
+    
+      this.bookings.forEach(item => {
+        const bookingStart = new Date(item.checkIn);
+        const bookingEnd = new Date(item.checkOut);
+    
+        if (bookingStart <= endDate && bookingEnd >= startDate) {
+          const overlapStart = bookingStart < startDate ? startDate : bookingStart;
+          const overlapEnd = bookingEnd > endDate ? endDate : bookingEnd;
+          occupiedDays += (overlapEnd - overlapStart) / (24 * 60 * 60 * 1000);
+        }
+      });
+    
+      const occupancyPercentage = (occupiedDays / totalTimeResearch) * 100;
+    
+      return Number(occupancyPercentage.toFixed(2));
+  }
+
     static totalOccupancyPercentage(rooms, startDate, endDate){
        return false;
     }
@@ -50,15 +60,6 @@ class Room {
         return false;
     }
 }
-
-// Methods:
-// isOccupied(date) returns false if not occupied, returns true if occupied
-// occupancyPercentage(startDate, endDate) returns the percentage of days with occupancy within the range of dates provided (inclusive)
-
-// Static methods:
-// totalOccupancyPercentage(rooms, startDate, endDate) returns the total occupancy percentage across all rooms in the array
-// availableRooms(rooms, startDate, endDate) returns an array of all rooms in the array that are not occupied for the entire duration
-
 
 class Booking {
     constructor(name, email, checkIn, checkOut, discount, room) {

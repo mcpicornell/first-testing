@@ -28,8 +28,8 @@ roomSuite.bookings = [booking1];
 const booking2 = new Booking (
     "Paquito",
     "paquito@gmail.com",
-    new Date("2023-04-01"),
-    new Date("2023-06-01"),
+    new Date("2023-01-01"),
+    new Date("2023-02-16"),
     10,
     roomDoubleBed,
 );
@@ -37,15 +37,16 @@ const booking2 = new Booking (
 const booking3 = new Booking (
     "Margarita",
     "margarita@gmail.com",
-    new Date("2023-07-01"),
-    new Date ("2023-08-01"),
+    new Date("2023-02-17"),
+    new Date ("2023-02-22"),
     10,
     roomDoubleBed,
 );
 
 roomDoubleBed.bookings = [booking2, booking3];
 
-const rooms = [roomSuite, roomDoubleBed];
+occupancy("2023-01-05", "2023-01-15")
+// console.log(occupancy("2023-01-05", "2023-01-15"))
 
 //ROOM TESTS
 describe("Boolean check if the room is occupied", () => {
@@ -56,7 +57,7 @@ describe("Boolean check if the room is occupied", () => {
 
 describe("Test the total occupancy percentage", () => {
     test("Number is expected", () => {
-        expect(occupancyPercentage(startDate, endDate)).toBe(Number);
+        expect(roomDoubleBed.occupancyPercentage("2022-12-25", "2023-01-20")).toBe(20);
     });
 });
 
