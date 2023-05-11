@@ -54,10 +54,25 @@ class Room {
   }
 
     static totalOccupancyPercentage(rooms, startDate, endDate){
-       return false;
+      let elements = 0;
+      let occupancyPercentage = 0;
+      rooms.forEach(item => {
+        occupancyPercentage += item.occupancyPercentage(startDate, endDate);
+        elements += 1;
+      });
+      const totalOccupancyPercentage = occupancyPercentage/elements;
+    
+      return totalOccupancyPercentage;
+
     }
     static availableRooms(rooms, startDate, endDate) {
-        return false;
+      let availableRooms = [];
+      rooms.forEach(item => {
+        if(item.occupancyPercentage(startDate, endDate) === 0){
+          availableRooms.push(item);
+        }
+      });
+      return availableRooms;
     }
 }
 

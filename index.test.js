@@ -45,8 +45,8 @@ const booking3 = new Booking (
 
 roomDoubleBed.bookings = [booking2, booking3];
 
-occupancy("2023-01-05", "2023-01-15")
-// console.log(occupancy("2023-01-05", "2023-01-15"))
+const rooms = [roomSuite, roomDoubleBed]
+
 
 //ROOM TESTS
 describe("Boolean check if the room is occupied", () => {
@@ -55,21 +55,21 @@ describe("Boolean check if the room is occupied", () => {
     });
 });
 
-describe("Test the total occupancy percentage", () => {
+describe("Test occupancy percentage", () => {
     test("Number is expected", () => {
-        expect(roomDoubleBed.occupancyPercentage("2022-12-25", "2023-01-20")).toBe(20);
+        expect(roomDoubleBed.occupancyPercentage("2022-12-25", "2023-01-20")).toBe(73.08);
     });
 });
 
 describe("Total occupancy percentage", () => {
     test("Number is expected", () => {
-        expect(totalOccupancyPercentage(rooms, startDate, endDate)).toBe(25);
+        expect(Room.totalOccupancyPercentage(rooms, "2022-12-25", "2023-01-20")).toBe(73.08);
     });
 });
 
 describe("Total of the avaliable rooms in array", () => {
     test("Total of the avaliable rooms in array", () => {
-        expect(availableRooms(rooms, startDate, endDate)).toBe(rooms.bookings);
+        expect(Room.availableRooms(rooms, "2022-12-25", "2022-12-31")).toBe([roomSuite, roomDoubleBed]);
     });
 });
 
